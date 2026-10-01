@@ -8,7 +8,7 @@ int main()
     SetConsoleOutputCP(1251);
     srand(time(NULL));
 
-    int n = 3;
+
 
     /*
     const int col = 10;
