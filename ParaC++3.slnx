@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="ParaC++3/ParaC++3.vcxproj" Id="ecc105ae-5ffc-453f-b45b-1d702a30d61e" />
+</Solution>
