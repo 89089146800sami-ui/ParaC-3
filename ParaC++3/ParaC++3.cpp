@@ -11,7 +11,7 @@ int main()
 
 
     /*
-    const int col = 10;
+    const int col =    ;
     const int row = 3;
     int alex[row][col]{};
     for (size_t row_this = 0; row_this < row; row_this++) {                                              
