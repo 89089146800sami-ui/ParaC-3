@@ -1,16 +1,92 @@
 ﻿#include <iostream>
 #include <Windows.h>
 #include <string>
+/*
+
+Тип_возврата имя_функции(аргументы_функции) {
+
+}
+
+*/
+
+double umn(double a, double b) {
+    return a * b;
+}
+double del(double a, double b) {
+    return a / b;
+}
+double sum(double a, double b) {
+    return a + b;
+}
+double minus(double a, double b) {
+    return a - b;
+}
 
 int main()
 {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     srand(time(NULL));
-    
-    int a = 24726;
+    std::string input;
+    char choose = ' ';
+    double a, b;
+    while (true) {
+        system("cls");
+        std::cout << "\n\n\n\tКалькулятор\n\nВыберите действие:\n\n";
+        std::cout << "1 - Умножение\n";
+        std::cout << "2 - Деление\n";
+        std::cout << "3 - Сложение\n";
+        std::cout << "4 - Вычитание\n";
+        std::cout << "0 - Выход\n";
+        std::cout << "\nВвод: ";
+        input = "";
+        std::getline(std::cin, input);
 
+        choose = input[0];
 
+        if (choose == '1') {
+            system("cls");
+            std::cout << "Ввод первого числа умножения: ";
+            std::cin >> a;
+            std::cout << "Ввод второго числа умножения: ";
+            std::cin >> b;
+            std::cout << "\nОтвет: " << umn(a, b) << "\n";
+            system("pause");
+        }
+        else if (choose == '2') {
+            system("cls");
+            std::cout << "Ввод первого числа деления: ";
+            std::cin >> a;
+            std::cout << "Ввод второго числа деления: ";
+            std::cin >> b;
+            std::cout << "\nОтвет: " << del(a, b) << "\n";
+            system("pause");
+        }
+        else if (choose == '3') {
+            system("cls");
+            std::cout << "Ввод первого числа суммы: ";
+            std::cin >> a;
+            std::cout << "Ввод второго числа суммы: ";
+            std::cin >> b;
+            std::cout << "\nОтвет: " << sum(a, b) << "\n";
+            system("pause");
+        }
+        else if (choose == '4') {
+            system("cls");
+            std::cout << "Ввод первого числа вычитания: ";
+            std::cin >> a;
+            std::cout << "Ввод второго числа вычитания: ";
+            std::cin >> b;
+            std::cout << "\nОтвет: " << minus(a, b) << "\n";
+            system("pause");
+        }
+        else if (choose == '0') {
+            break;
+        }
+        else {
+            system("cls");
+        }
+    }
     /*
     const int col =    ;
     const int row = 3;
