@@ -1,6 +1,8 @@
 ﻿#include <iostream>
 #include <Windows.h>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 /*
 
 Тип_возврата имя_функции(аргументы_функции) {
@@ -9,17 +11,45 @@
 
 */
 
-double umn(double a, double b) {
-    return a * b;
+double FillArray(double a[], int b);
+char FillArray(char a[], int b);
+int FillArray(int a[], int b);
+double ShowArray(double a[], int b);
+char ShowArray(char a[], int b);
+int ShowArray(int a[], int b);
+
+
+template <typename T1, typename Alex>
+T1 Substruct(T1 one, Alex two) {
+    return one - two;
 }
-double del(double a, double b) {
-    return a / b;
+
+
+int Factorial(int num) {
+    if (num < 0) {
+        return 0;
+    }
+    else if (num == 0) {
+        return 1;
+    }
+    return num * Factorial(num - 1);
 }
-double sum(double a, double b) {
-    return a + b;
+
+int Prois(int num1, int num2) {
+    if (num2 == 0) {
+        return 0;
+    }
+    return num1 + Prois(num1, (num2 - 1));
 }
-double minus(double a, double b) {
-    return a - b;
+
+double Delen(double num1, double num2, int num3) {
+    if (num1 == 0) {
+        return num3;
+    }
+    else if (num1 <= 0 || num1 < num2) {
+        return num3;
+    };
+    return Delen((num1 - num2), num2, (num3 + 1));
 }
 
 int main()
@@ -27,66 +57,22 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     srand(time(NULL));
+    const int size = 4;
     std::string input;
     char choose = ' ';
-    double a, b;
-    while (true) {
-        system("cls");
-        std::cout << "\n\n\n\tКалькулятор\n\nВыберите действие:\n\n";
-        std::cout << "1 - Умножение\n";
-        std::cout << "2 - Деление\n";
-        std::cout << "3 - Сложение\n";
-        std::cout << "4 - Вычитание\n";
-        std::cout << "0 - Выход\n";
-        std::cout << "\nВвод: ";
-        input = "";
-        std::getline(std::cin, input);
+    int mas[size]{};
+    double ras[size]{};
+    char gaz[size]{};
 
-        choose = input[0];
-
-        if (choose == '1') {
-            system("cls");
-            std::cout << "Ввод первого числа умножения: ";
-            std::cin >> a;
-            std::cout << "Ввод второго числа умножения: ";
-            std::cin >> b;
-            std::cout << "\nОтвет: " << umn(a, b) << "\n";
-            system("pause");
-        }
-        else if (choose == '2') {
-            system("cls");
-            std::cout << "Ввод первого числа деления: ";
-            std::cin >> a;
-            std::cout << "Ввод второго числа деления: ";
-            std::cin >> b;
-            std::cout << "\nОтвет: " << del(a, b) << "\n";
-            system("pause");
-        }
-        else if (choose == '3') {
-            system("cls");
-            std::cout << "Ввод первого числа суммы: ";
-            std::cin >> a;
-            std::cout << "Ввод второго числа суммы: ";
-            std::cin >> b;
-            std::cout << "\nОтвет: " << sum(a, b) << "\n";
-            system("pause");
-        }
-        else if (choose == '4') {
-            system("cls");
-            std::cout << "Ввод первого числа вычитания: ";
-            std::cin >> a;
-            std::cout << "Ввод второго числа вычитания: ";
-            std::cin >> b;
-            std::cout << "\nОтвет: " << minus(a, b) << "\n";
-            system("pause");
-        }
-        else if (choose == '0') {
-            break;
-        }
-        else {
-            system("cls");
-        }
-    }
+    FillArray(mas, size);
+    FillArray(ras, size);
+    FillArray(gaz, size);
+    ShowArray(mas, size);
+    ShowArray(ras, size);
+    ShowArray(gaz, size);
+    std::cout << "\n\n" << Factorial(5) << "\n";
+    std::cout << Prois(3, 4) << "\n";
+    std::cout << Delen(6, 2, 0);
     /*
     const int col =    ;
     const int row = 3;
@@ -502,3 +488,53 @@ int main()
 
     return 0;
 }
+
+double FillArray(double a[], int b) {
+    for (size_t i = 0; i < b; i++)
+    {
+        a[i] = (static_cast<double>(rand()) / RAND_MAX) * 10.0;
+        a[i] = std::round(a[i] * 10.0) / 10.0;
+
+    }
+    return 0;
+}
+char FillArray(char a[], int b) {
+    for (size_t i = 0; i < b; i++)
+    {
+        a[i] = (char)(rand() % 26 + 97);
+    }
+    return ' ';
+}
+int FillArray(int a[], int b) {
+    for (size_t i = 0; i < b; i++)
+    {
+        a[i] = rand() % 10;
+    }
+    return 0;
+}
+double ShowArray(double a[], int b) {
+    std::cout << "\n";
+    for (size_t i = 0; i < b; i++)
+    {
+        std::cout << a[i] << " ";
+    }
+    return 0;
+}
+char ShowArray(char a[], int b) {
+    std::cout << "\n";
+    for (size_t i = 0; i < b; i++)
+    {
+        std::cout << a[i] << " ";
+    }
+    return ' ';
+}
+int ShowArray(int a[], int b) {
+    std::cout << "\n";
+    for (size_t i = 0; i < b; i++)
+    {
+        std::cout << a[i] << " ";
+    }
+    return 0;
+}
+
+
