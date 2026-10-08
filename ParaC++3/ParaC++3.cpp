@@ -10,7 +10,7 @@
 }
 
 */
-
+/*
 double FillArray(double a[], int b);
 char FillArray(char a[], int b);
 int FillArray(int a[], int b);
@@ -51,12 +51,347 @@ double Delen(double num1, double num2, int num3) {
     };
     return Delen((num1 - num2), num2, (num3 + 1));
 }
+*/
 
-int main()
-{
+std::string corsina_name[64]{};
+int corsina_price[64]{};
+int corsina_col[64]{};
+bool five_petr = FALSE;
+bool trinad_proc = FALSE;
+bool fruct = FALSE;
+int sum = 0;
+int petr = 0;
+int luk = 0;
+int skid_luk = 0;
+double skid = 0;
+
+int corsina_add(std::string num1, int num2, int num3) {
+    for (size_t i = 0; i < 64; ++i) {
+        if (corsina_name[i] == "") {
+            corsina_name[i] = num1;
+            corsina_price[i] = num2;
+            corsina_col[i] = num3;
+            std::cout << num1 << ", " << num2 << " рублей за литр, "
+                << num3 << " литров | Успешно добавлено в корзину\n";
+            return 0;
+        }
+    }
+    std::cout << "Корзина заполнена, нельзя добавить товар.\n";
+    return -1;
+}
+
+double skidka() {
+    five_petr = FALSE;
+    trinad_proc = FALSE;
+    sum = 0;
+    petr = 0;
+    luk = 0;
+    skid_luk = 0;
+    skid = 0;
+    for (size_t i = 0; i < 64; i++)
+    {
+        sum += (corsina_price[i]*corsina_col[i]);
+        if (corsina_name[i] == "Петрушевый") {
+            petr += corsina_col[i];
+            if (petr >= 3) {
+                five_petr = TRUE;
+                for (size_t i = 0; i < 64; i++) {
+                    if (corsina_name[i] == "Петрушевый") {
+                        skid += (corsina_price[i] / 100 * 5);
+                    }
+                }
+            }
+        }
+        else if (corsina_name[i] == "Луковый") {
+            luk += corsina_col[i];
+            skid_luk = luk / 4;
+        }
+    }
+    if (sum > 3000) {
+        skid += (sum / 100 * 13);
+        trinad_proc = TRUE;
+    }
+    return 0;
+}
+
+bool AntiBayr() {
+    bool nast = FALSE;
+    for (size_t i = 0; i < 64; i++)
+    {
+        if (corsina_name[i] == "Боярышник") {
+            corsina_name[i] == "";
+            corsina_price[i] == 0;
+            corsina_col[i] == 0;
+            nast = TRUE;
+        }
+    }
+    if (nast == TRUE){
+        return TRUE;
+    }
+    else { return FALSE; }
+}
+
+int main(){
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     srand(time(NULL));
+    std::string input;
+    char choose = ' ';
+
+    const int fructs_size = 4;
+    const int ovoch_size = 3;
+    const int chai_size = 2;
+    const int nasto_size = 1;
+    
+    int fructs_price[fructs_size]{ 200, 200, 300, 150 };
+    std::string fructs[fructs_size]{ "Яблочный", "Апельсиновый", "Абрикосовый", "Грушевый" };
+    int ovoch_price[ovoch_size]{ 250, 150, 150 };
+    std::string ovoch[ovoch_size]{ "Томатный", "Луковый", "Огуречный" };
+    int chai_price[chai_size]{ 250, 250 };
+    std::string chai[chai_size]{ "Чесночный", "Петрушевый" };
+    int nasto_price[nasto_size]{ 1000 };
+    std::string nasto[nasto_size]{ "Боярышник" };
+
+    while (true) {
+        system("cls");
+        std::cout << "\n\n\t\tМагазин \"Соки Александра\"\n\n";
+        std::cout << "\tМагазин спциализируется на продаже напитков в банках\n\n";
+        std::cout << "1 - Соки\n";
+        std::cout << "2 - Чаи\n";
+        std::cout << "3 - Настойки\n";
+        std::cout << "\n4 - Скидки\n";
+        std::cout << "\n5 - Посмотреть корзину\n\n";
+        std::cout << "0 - Выход\n";
+        std::cout << "\nВвод: ";
+        std::getline(std::cin, input);
+
+        choose = input[0];
+
+        if (choose == '1') {
+            int gues;
+            while (true) {
+                system("cls");
+                std::cout << "\n\nВыбрана катеория соки" << "\n";
+                std::cout << "1 - Фруктовые\n";
+                std::cout << "2 - Овощные\n";
+                std::cout << "0 - Вернуться\n";
+                std::cout << "\nВвод: ";
+                std::getline(std::cin, input);
+                choose = input[0];
+                if (input.empty()) continue;
+                if (choose == '0') { break; }
+                else if (choose == '1') {
+                    while (true) {
+                        system("cls");
+                        std::cout << "\n\nКакой именно фруктовый сок вы хотите?" << "\n";
+                        for (size_t i = 0; i < fructs_size; i++)
+                        {
+                            std::cout << i + 1 << " " << fructs[i] << " (" << fructs_price[i] << " р/л)" << " | ";
+                        }
+                        std::cout << "\n0 - Вернуться\n";
+                        std::cout << "\nВвод: ";
+                        std::getline(std::cin, input);
+                        choose = input[0];
+                        if (input.empty()) continue;
+                        if (choose == '0') { break; }
+                        else {
+                            gues = std::stoi(input) - 1;
+                            while (true) {
+                                system("cls");
+                                std::cout << "\n\nСколько " << fructs[gues] << " сока вы хотите в литрах" << "\n";
+                                std::cout << "\n0 - Вернуться\n";
+                                std::cout << "\nВвод: ";
+                                std::getline(std::cin, input);
+                                choose = input[0];
+                                if (input.empty()) continue;
+                                if (choose == '0') { break; }
+                                else {
+                                    corsina_add(fructs[gues], fructs_price[gues], std::stoi(input));
+                                    fruct = TRUE;
+                                    if (AntiBayr() == TRUE) { std::cout << "\nБоярышник ликвидирован!\n"; }
+                                    system("pause");
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (choose == '2') {
+                    while (true) {
+                        system("cls");
+                        std::cout << "\n\nКакой именно овощной сок вы хотите?" << "\n";
+                        for (size_t i = 0; i < ovoch_size; i++)
+                        {
+                            std::cout << i + 1 << " " << ovoch[i] << " (" << ovoch_price[i] << " р/л)" << " | ";
+                        }
+                        std::cout << "\n0 - Вернуться\n";
+                        std::cout << "\nВвод: ";
+                        std::getline(std::cin, input);
+                        choose = input[0];
+                        if (input.empty()) continue;
+                        if (choose == '0') { break; }
+                        else {
+                            gues = std::stoi(input) - 1;
+                            while (true) {
+                                system("cls");
+                                std::cout << "\n\nСколько " << ovoch[gues] << " сока вы хотите в литрах" << "\n";
+                                std::cout << "\n0 - Вернуться\n";
+                                std::cout << "\nВвод: ";
+                                std::getline(std::cin, input);
+                                choose = input[0];
+                                if (input.empty()) continue;
+                                if (choose == '0') { break; }
+                                else {
+                                    corsina_add(ovoch[gues], ovoch_price[gues], std::stoi(input));
+                                    system("pause");
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else if (choose == '2') {
+            int gues;
+            while (true) {
+                system("cls");
+                std::cout << "\n\nКакой именно чай вы хотите?" << "\n";
+                for (size_t i = 0; i < chai_size; i++)
+                {
+                    std::cout << i + 1 << " " << chai[i] << " (" << chai_price[i] << " р/л)" << " | ";
+                }
+                std::cout << "\n0 - Вернуться\n";
+                std::cout << "\nВвод: ";
+                std::getline(std::cin, input);
+                choose = input[0];
+                if (input.empty()) continue;
+                if (choose == '0') { break; }
+                else {
+                    gues = std::stoi(input) - 1;
+                    while (true) {
+                        system("cls");
+                        std::cout << "\n\nСколько " << chai[gues] << " сока вы хотите в литрах" << "\n";
+                        std::cout << "\n0 - Вернуться\n";
+                        std::cout << "\nВвод: ";
+                        std::getline(std::cin, input);
+                        choose = input[0];
+                        if (input.empty()) continue;
+                        if (choose == '0') { break; }
+                        else {
+                            corsina_add(chai[gues], chai_price[gues], std::stoi(input));
+                            system("pause");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else if (choose == '3') {
+            int gues;
+            while (true) {
+                system("cls");
+                std::cout << "\n\nКакую именно настойку вы хотите?" << "\n";
+                for (size_t i = 0; i < nasto_size; i++)
+                {
+                    std::cout << i + 1 << " " << nasto[i] << " (" << nasto_price[i] << " р/л)" << " | ";
+                }
+                std::cout << "\n0 - Вернуться\n";
+                std::cout << "\nВвод: ";
+                std::getline(std::cin, input);
+                choose = input[0];
+                if (input.empty()) continue;
+                if (choose == '0') { break; }
+                else {
+                    gues = std::stoi(input) - 1;
+                    while (true) {
+                        system("cls");
+                        std::cout << "\n\nСколько " << nasto[gues] << " сока вы хотите в литрах" << "\n";
+                        std::cout << "\n0 - Вернуться\n";
+                        std::cout << "\nВвод: ";
+                        std::getline(std::cin, input);
+                        choose = input[0];
+                        if (input.empty()) continue;
+                        if (choose == '0') { break; }
+                        else {
+                            if (fruct == FALSE) {
+                                corsina_add(nasto[gues], nasto_price[gues], std::stoi(input));
+                                system("pause");
+                                break;
+                            }
+                            else {
+                                std::cout << "\nВ корзине есть фруктовый сок, добавление настоек запрещено!\n\n";
+                                system("pause");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else if (choose == '4') {
+            skidka();
+            while (true) {
+                system("cls");
+                std::cout << "\nВсе скидки в нашем магазине:" << "\n\n";
+                std::cout << "Текущая скидка: " << skid;
+                std::cout << "\nТекущая сумма: " << sum << "\n\n";
+                std::cout << "1) При покупке 3л петрушевого чая, скидка 5% на них - "; 
+                if (five_petr == TRUE) { std::cout << "Активна\n"; } else { std::cout << "Неактивна\n"; }
+                std::cout << "2) Если стоимость покупки превышает 3000 рублей, то скидка 13% на весь чек - ";
+                if (trinad_proc == TRUE) { std::cout << "Активна\n"; } else { std::cout << "Неактивна\n"; }
+                std::cout << "3) Каждый четвёртый литр лукового сока в подарок - Сейчас " << skid_luk << " литра бесплатно\n";
+                std::cout << "\n0 - Вернуться\n";
+                std::cout << "\nВвод: ";
+                std::getline(std::cin, input);
+                choose = input[0];
+                if (input.empty()) continue;
+                if (choose == '0') { break; }
+            }
+        }
+        else if (choose == '5') {
+            skidka();
+            while (true) {
+                system("cls");
+                std::cout << "\nВаша корзина:" << "\n\n";
+                for (size_t i = 0; i < 64; i++) {
+                    if (corsina_name[i] != "") {
+                        std::cout << i + 1 << ") " << corsina_name[i] << " | " << corsina_price[i] << " р/л | " << corsina_col[i] << " л\n";
+                    }
+                }
+                std::cout << "\nТекущая сумма: " << sum << "\n";
+                std::cout << "Текущая скидка: " << skid;
+                std::cout << "\n\n1) При покупке 3л петрушевого чая, скидка 5% на них - ";
+                if (five_petr == TRUE) { std::cout << "Активна\n"; }
+                else { std::cout << "Неактивна\n"; }
+                std::cout << "2) Если стоимость покупки превышает 3000 рублей, то скидка 13% на весь чек - ";
+                if (trinad_proc == TRUE) { std::cout << "Активна\n"; }
+                else { std::cout << "Неактивна\n"; }
+                std::cout << "3) Каждый четвёртый литр лукового сока в подарок - Сейчас " << skid_luk << " литра бесплатно\n";
+                std::cout << "\n\nИтог: " << (sum - skid) << "\n\n";
+                std::cout << "\n1 - Оплатить";
+                std::cout << "\n0 - Вернуться\n";
+                std::cout << "\nВвод: ";
+                std::getline(std::cin, input);
+                choose = input[0];
+                if (input.empty()) continue;
+                if (choose == '0') { break; }
+                else if (choose == '1') {
+                    system("cls");
+                    std::cout << "Чек оплачен:\n\n\n";
+                    std::cout << "Сумма: " << sum;
+                    std::cout << "\nСкидка: " << skid;
+                    std::cout << "\n\nИтог: " << (sum - skid) << "\n\n";
+                    system("pause");
+                    break;
+                }
+            }
+        }
+        else if (choose == '0') {
+            break;
+        }
+    }
+    /*
     const int size = 4;
     std::string input;
     char choose = ' ';
@@ -73,6 +408,7 @@ int main()
     std::cout << "\n\n" << Factorial(5) << "\n";
     std::cout << Prois(3, 4) << "\n";
     std::cout << Delen(6, 2, 0);
+    */
     /*
     const int col =    ;
     const int row = 3;
@@ -489,6 +825,7 @@ int main()
     return 0;
 }
 
+/*
 double FillArray(double a[], int b) {
     for (size_t i = 0; i < b; i++)
     {
@@ -536,5 +873,5 @@ int ShowArray(int a[], int b) {
     }
     return 0;
 }
-
+*/
 
